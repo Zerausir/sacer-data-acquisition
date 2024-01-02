@@ -10,7 +10,8 @@ from swifter import swifter
 load_dotenv()
 
 # Select server and download routes
-server_route = os.getenv('server_route')
+server_route1 = os.getenv('server_route1')
+server_route2 = os.getenv('server_route2')
 download_route = os.getenv('download_route')
 
 # Name of the files with the data for suspension authorizations and the broadcasting stations
@@ -26,7 +27,7 @@ columnasAUTBP = ['No. INGRESO', 'FECHA', 'OFICIO ARCOTEL', 'FECHA OFICIO', 'NOMB
                  'PLAZO OTORGADO', 'FECHA INICIO PLAZO/NOTIFICACION', 'ZONAL']
 
 # Load the Excel workbook with openpyxl
-workbook = xlrd.open_workbook(server_route + file_aut_bp, formatting_info=True)
+workbook = xlrd.open_workbook(server_route2 + file_aut_bp, formatting_info=True)
 
 # Select the desired sheet (replace 'Sheet1' with your actual sheet name)
 sheet = workbook.sheet_by_name('MTTEMP')
@@ -92,7 +93,7 @@ for col_name in datetime_columns:
             row[col_index] = xlrd.xldate_as_datetime(row[col_index], workbook.datemode)
 
 # Create a new DataFrame with the modified data
-df1 = pd.read_excel(server_route + file_aut_sus, engine='xlrd', header=1, usecols=columnasAUT,
+df1 = pd.read_excel(server_route1 + file_aut_sus, engine='xlrd', header=1, usecols=columnasAUT,
                     sheet_name='SUSPENSIÓN EMISIONES 2021-2023')
 df1['FECHA INGRESO ARCOTEL'] = pd.to_datetime(df1['FECHA INGRESO ARCOTEL'], errors='coerce')
 df1['FECHA OFICIO'] = pd.to_datetime(df1['FECHA OFICIO'], errors='coerce')
